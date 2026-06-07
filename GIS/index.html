@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>KL Historical Photographic Archive GIS Map Explore </title>
@@ -9,17 +9,17 @@
         body { margin: 0; padding: 0; font-family: 'Helvetica Neue', Arial, sans-serif; display: flex; height: 100vh; background: #0f172a; color: #fff; overflow: hidden; }
         
         /* 左侧侧边栏包裹容器：边框改为纯白 */
-        #left-sidebar { flex: 1; height: 100vh; position: relative; background: rgba(15, 23, 42, 0.98); border-right: 1px solid #646464; box-shadow: 10px 0 30px rgba(0,0,0,0.5); z-index: 10; }
+        #left-sidebar { flex: 1; height: 100vh; position: relative; background: rgba(15, 23, 42, 0.98); border-left: 1px solid #646464; box-shadow: -10px 0 30px rgba(0,0,0,0.5); z-index: 10; }
         
         /* 左侧文字叙事面板 */
         #story-panel { height: 100vh; overflow-y: scroll; scroll-snap-type: y mandatory; }
         #story-panel::-webkit-scrollbar { display: none; }
         
         /* 右侧 3D 地图容器 */
-        #map { flex: 1.3; height: 100vh; position: relative; }
+        #map { flex: 2; height: 100vh; position: relative; }
         
         /* 景点卡片布局 */
-        .scene-section { height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 0 40px; box-sizing: border-box; scroll-snap-align: start; border-bottom: 1px solid #1e293b; }
+        .scene-section { height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 0 28px; box-sizing: border-box; scroll-snap-align: start; border-bottom: 1px solid #1e293b; }
         
         /* 标题和编号全部改为纯白 */
         .scene-number { font-size: 16px; color: #ffffff; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 5px; }
@@ -59,39 +59,40 @@
         .nav-item:hover::after { opacity: 1; top: 24px; }
 
         /* 现代感定制气泡弹窗 (Glassmorphism) */
-        .modern-popup { background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(12px); border: 1px solid rgba(0, o, o, 0.6); border-radius: 16px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 15px rgba(0, 229, 255, 0.2); padding: 14px; width: 260px; position: relative; transform: translateY(-8px); cursor: default; }
+        .modern-popup { background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(12px); border: 1px solid rgba(0, o, o, 0.6); border-radius: 16px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 15px rgba(0, 229, 255, 0.2); padding: 14px; width: 300px; position: relative; transform: translateY(-8px); cursor: default; }
         .modern-popup::after { content: ''; position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%); border-width: 10px 10px 0; border-style: solid; border-color: rgba(15, 23, 42, 0.95) transparent transparent transparent; }
         .modern-popup::before { content: ''; position: absolute; bottom: -12px; left: 50%; transform: translateX(-50%); border-width: 12px 12px 0; border-style: solid; border-color: rgba(0, 0, 0, 0.6) transparent transparent transparent; z-index: -1; }
-        .modern-popup h3 { margin: 0 0 6px 0; font-size: 15px; color: #ffffff; font-weight: 700; letter-spacing: 0.5px; border-bottom: 1px solid rgba(255, 255, 255, 0.15); padding-bottom: 6px; }
+        .modern-popup h3 { margin: 0 0 6px 0; font-size: 18px; color: #ffffff; font-weight: 700; letter-spacing: 0.5px; border-bottom: 1px solid rgba(255, 255, 255, 0.15); padding-bottom: 6px; }
         .modern-popup p { margin: 0 0 10px 0; font-size: 11px; color: #00E5FF; line-height: 1.4; font-family: 'Courier New', Courier, monospace; background: rgba(0, 0, 0, 0.3); padding: 4px 6px; border-radius: 4px; text-align: center; }
         .modern-popup img { width: 100%; height: 100px; object-fit: cover; border-radius: 8px; display: block; box-shadow: 0 4px 10px rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.1); }
     </style>
 </head>
 <body>
-
+rail
+    <div id="map"></div>
     <div id="left-sidebar">
         <div id="time-navigation">
-            <div class="nav-item active" onclick="scrollToScene(0)" data-title="1909 占美清真寺"></div>
-            <div class="nav-item" onclick="scrollToScene(1)" data-title="1897 苏丹大厦"></div>
+            <div class="nav-item active" onclick="scrollToScene(0)" data-title="1909 Masjid Jamek"></div>
+            <!-- <div class="nav-item" onclick="scrollToScene(1)" data-title="1897 苏丹大厦"></div>
             <div class="nav-item" onclick="scrollToScene(2)" data-title="1870 茨厂街"></div>
-            <div class="nav-item" onclick="scrollToScene(3)" data-title="1864 仙四师爷庙"></div>
-            <div class="nav-item" onclick="scrollToScene(4)" data-title="1910 老火车站"></div>
-            <div class="nav-item" onclick="scrollToScene(5)" data-title="1937 中央艺术坊"></div>
-            <div class="nav-item" onclick="scrollToScene(6)" data-title="1965 国家清真寺"></div>
+            <div class="nav-item" onclick="scrollToScene(3)" data-title="1864 仙四师爷庙"></div> -->
+            <div class="nav-item" onclick="scrollToScene(4)" data-title="Old Railway Station"></div>
+            <!-- <div class="nav-item" onclick="scrollToScene(5)" data-title="1937 中央艺术坊"></div> -->
+           <!--  <div class="nav-item" onclick="scrollToScene(6)" data-title="1965 国家清真寺"></div>
             <div class="nav-item" onclick="scrollToScene(7)" data-title="1998 蓝色双子塔"></div>
-            <div class="nav-item" onclick="scrollToScene(8)" data-title="1996 吉隆坡高塔"></div>
+            <div class="nav-item" onclick="scrollToScene(8)" data-title="1996 吉隆坡高塔"></div> -->
         </div>
 
         <div id="story-panel" onscroll="handleScroll()">
             <div class="scene-section" id="scene-0">
                 <div class="scene-number">Scene 01</div>
-                <h2>占美清真寺 (Masjid Jamek)</h2>
+                <h2>Masjid Jamek</h2>
                 <div class="tags-container">
                     <div class="year-tag">⏳ 1909 年</div>
                     <div class="stat-label">Jamek Mosque</div>
                     <div class="stat-label">KL-HIS-001</div>
                 </div>
-                <p>这里是吉隆坡的发源地，位于两河交汇处。红白相间的摩尔式砖墙在椰树衬托下，诉说着城市最初的宁静。</p>
+                <p></p>
                 <img class="scene-img" src="https://images.unsplash.com/photo-1590001155093-a3c66ab0c3ff?auto=format&fit=crop&w=800&q=80" alt="Masjid Jamek">
             </div>
 
@@ -139,8 +140,8 @@
                     <div class="stat-label">Old Railway Station</div>
                     <div class="stat-label">KL-HIS-005</div>
                 </div>
-                <p>著名的北印度撒拉逊风格建筑，白色的尖塔、优雅的拱门，在双子塔问世前是吉隆坡最美名片。</p>
-                <img class="scene-img" src="https://images.unsplash.com/photo-1596422846543-75c6fc18a523?auto=format&fit=crop&w=800&q=80" alt="Station">
+                <p>Showcasing the station's beautiful Moorish style with an old steam train at the platform, reflecting early rail travel in Malaysia.</p>
+                <img class="scene-img" src="7.jpg" alt="Station">
             </div>
 
             <div class="scene-section" id="scene-5">
@@ -193,7 +194,7 @@
         </div>
     </div>
 
-    <div id="map"></div>
+  
 
     <script>
         const map = new maptalks.Map('map', {
@@ -210,11 +211,11 @@
         const markerLayer = new maptalks.VectorLayer('markers').addTo(map);
 
         const scenes = [
-            { name: "占美清真寺", center: [101.6953, 3.1492], zoom: 17.5, pitch: 55, bearing: -10, img: "https://images.unsplash.com/photo-1590001155093-a3c66ab0c3ff?w=150" },
+            { name: "Masjid Jamek", center: [101.6953, 3.1492], zoom: 17.5, pitch: 55, bearing: -10, img: "https://images.unsplash.com/photo-1590001155093-a3c66ab0c3ff?w=150" },
             { name: "苏丹阿都沙末大厦", center: [101.6938, 3.1486], zoom: 17.5, pitch: 60, bearing: 45, img: "https://images.unsplash.com/photo-1621847468416-a2071bc17282?w=150" },
             { name: "茨厂街", center: [101.6972, 3.1436], zoom: 17.5, pitch: 50, bearing: -20, img: "https://images.unsplash.com/photo-1543157145-f78c636d023d?w=150" },
             { name: "仙四师爷庙", center: [101.6961, 3.1451], zoom: 18.5, pitch: 55, bearing: 10, img: "https://images.unsplash.com/photo-1564507592333-c60657eea523?w=150" },
-            { name: "Kuala Lumpur Railway Station", center: [101.6931, 3.1397], zoom: 17.5, pitch: 60, bearing: -45, img: "https://images.unsplash.com/photo-1596422846543-75c6fc18a523?w=150" },
+            { name: "Kuala Lumpur Railway Station", center: [101.6931, 3.1397], zoom: 17.5, pitch: 60, bearing: -45, img: "7.jpg" },
             { name: "中央艺术坊", center: [101.6955, 3.1450], zoom: 17.5, pitch: 45, bearing: 0, img: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=150" },
             { name: "国家清真寺", center: [101.6917, 3.1417], zoom: 17, pitch: 55, bearing: 30, img: "https://images.unsplash.com/photo-1542856391-010fb87dcfed?w=150" },
             { name: "双子塔", center: [101.7117, 3.1579], zoom: 15.5, pitch: 65, bearing: -60, img: "https://images.unsplash.com/photo-1595855759920-86582396756a?w=150" },
@@ -263,7 +264,7 @@
                 'dy': -5,
                 'content': `
                     <div class="modern-popup">
-                        <h3>🏟️ ${config.name}</h3>
+                        <h3>🏛️ ${config.name}</h3>
                         <p>[${config.center[0].toFixed(4)}, ${config.center[1].toFixed(4)}]</p>
                         <img src="${config.img}" alt="${config.name}">
                     </div>
