@@ -10,7 +10,29 @@
         
         /* 左侧侧边栏包裹容器：边框改为纯白 */
         #left-sidebar { flex: 1; height: 100vh; position: relative; background: rgba(15, 23, 42, 0.98); border-left: 1px solid #646464; box-shadow: -10px 0 30px rgba(0,0,0,0.5); z-index: 10; }
-        
+    .sidebar-top-button {
+    position: absolute;
+    top: 28px;
+    right: 20px;
+    z-index: 1002; /* 确保高于导航条 */
+    
+    color: #ffffff;           /* 白色文字 */
+    text-decoration: none;    /* 去掉下划线 */
+    font-size: 14px;
+    padding: 0;               /* 去掉内边距 */
+    background: transparent;  /* 背景透明 */
+    border: none;             /* 去掉边框 */
+    cursor: pointer;          /* 鼠标移入显示手型 */
+    transition: all 0.3s ease;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    opacity: 0.8;             /* 稍微降低透明度，看起来更像文字而非按钮 */
+}
+
+.sidebar-top-button:hover {
+    background: transparent;  /* 悬停时保持背景透明 */
+    color: #da7b21;           /* 悬停时文字变为主题色 */
+    opacity: 1;               /* 悬停时透明度变回完全不透明 */
+}
         /* 左侧文字叙事面板 */
         #story-panel { height: 100vh; overflow-y: scroll; scroll-snap-type: y mandatory; }
         #story-panel::-webkit-scrollbar { display: none; }
@@ -23,10 +45,10 @@
         
         /* 标题和编号全部改为纯白 */
         .scene-number { font-size: 16px; color: #ffffff; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 5px; }
-        h2 { color: #ffffff; margin: 0 0 10px 0; font-size: 28px; text-shadow: 0 0 10px rgba(255,255,255,0.3); }
+        h2 { color: #ffffff; margin: 0 0 10px 0; font-size: 32px; text-shadow: 0 0 10px rgba(255,255,255,0.3); }
         
         /* 标签包裹容器 */
-        .tags-container { display: flex; gap: 10px; margin-bottom: 15px; align-items: center; flex-wrap: wrap; }
+        .tags-container { display: flex; gap: 10px; margin-bottom: 0px; align-items: center; flex-wrap: wrap; }
         
         /* 年份和统计标签样式统一：纯白文字 + 纯白实线边框 */
         .year-tag, .stat-label { 
@@ -35,13 +57,12 @@
             color: #ffffff; 
             padding: 4px 10px; 
             border-radius: 4px; 
-/*            font-weight: bold; */
             border: 1px solid #6c6c6c; 
             font-family: monospace; 
             font-size: 12px;
         }
         
-        p { color: #ffffff; line-height: 1.6; font-size: 15px; margin-bottom: 15px; }
+        p { color: #ffffff; line-height: 1.6; font-size: 20px; margin-bottom: 15px; }
         
         /* 叙事图片展示容器 */
         .scene-img { width: 100%; height: 200px; border-radius: 8px; object-fit: cover; border: 0px solid #384dd0; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
@@ -59,146 +80,123 @@
         .nav-item:hover::after { opacity: 1; top: 24px; }
 
         /* 现代感定制气泡弹窗 (Glassmorphism) */
-        .modern-popup { background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(12px); border: 1px solid rgba(0, o, o, 0.6); border-radius: 16px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 15px rgba(0, 229, 255, 0.2); padding: 14px; width: 300px; position: relative; transform: translateY(-8px); cursor: default; }
+        .modern-popup { background: rgba(15, 23, 42, 0.85); 
+    backdrop-filter: blur(12px); 
+    border: 1px solid rgba(0, 0, 0, 0.6); 
+    border-radius: 16px; 
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6); 
+    padding: 14px; 
+    width: 300px; /* 保持宽度固定，高度自适应 */
+    position: relative; 
+    transform: translateY(-8px); 
+    cursor: default;}
         .modern-popup::after { content: ''; position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%); border-width: 10px 10px 0; border-style: solid; border-color: rgba(15, 23, 42, 0.95) transparent transparent transparent; }
         .modern-popup::before { content: ''; position: absolute; bottom: -12px; left: 50%; transform: translateX(-50%); border-width: 12px 12px 0; border-style: solid; border-color: rgba(0, 0, 0, 0.6) transparent transparent transparent; z-index: -1; }
         .modern-popup h3 { margin: 0 0 6px 0; font-size: 18px; color: #ffffff; font-weight: 700; letter-spacing: 0.5px; border-bottom: 1px solid rgba(255, 255, 255, 0.15); padding-bottom: 6px; }
         .modern-popup p { margin: 0 0 10px 0; font-size: 11px; color: #00E5FF; line-height: 1.4; font-family: 'Courier New', Courier, monospace; background: rgba(0, 0, 0, 0.3); padding: 4px 6px; border-radius: 4px; text-align: center; }
-        .modern-popup img { width: 100%; height: 100px; object-fit: cover; border-radius: 8px; display: block; box-shadow: 0 4px 10px rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.1); }
+        .modern-popup img {width: 100%; 
+    height: auto; /* 改为 auto，根据宽度等比缩放 */
+    max-height: 200px; /* 可选：设置最大高度防止图片过大撑爆屏幕 */
+    object-fit: contain; /* 确保图片完整显示，不被裁剪 */
+    border-radius: 8px; 
+    display: block; 
+    box-shadow: 0 4px 10px rgba(0,0,0,0.4); 
+    border: 1px solid rgba(255,255,255,0.1); 
+    margin-top: 10px; }
     </style>
 </head>
 <body>
-rail
     <div id="map"></div>
     <div id="left-sidebar">
+        <a href="https://waiwa5.github.io/DigitalHumanities/" class="sidebar-top-button" target="_blank">Timeline</a>
         <div id="time-navigation">
-            <div class="nav-item active" onclick="scrollToScene(0)" data-title="1909 Masjid Jamek"></div>
-            <!-- <div class="nav-item" onclick="scrollToScene(1)" data-title="1897 苏丹大厦"></div>
-            <div class="nav-item" onclick="scrollToScene(2)" data-title="1870 茨厂街"></div>
-            <div class="nav-item" onclick="scrollToScene(3)" data-title="1864 仙四师爷庙"></div> -->
-            <div class="nav-item" onclick="scrollToScene(4)" data-title="Old Railway Station"></div>
-            <!-- <div class="nav-item" onclick="scrollToScene(5)" data-title="1937 中央艺术坊"></div> -->
-           <!--  <div class="nav-item" onclick="scrollToScene(6)" data-title="1965 国家清真寺"></div>
-            <div class="nav-item" onclick="scrollToScene(7)" data-title="1998 蓝色双子塔"></div>
-            <div class="nav-item" onclick="scrollToScene(8)" data-title="1996 吉隆坡高塔"></div> -->
+            <div class="nav-item active" onclick="scrollToScene(0)" data-title="1920s Railway Station"></div>
+            <div class="nav-item" onclick="scrollToScene(1)" data-title="1946 Kelab Sultan Sulaiman"></div>
+            <div class="nav-item" onclick="scrollToScene(2)" data-title="1960s Sultan Abdul Samad"></div>
+            <div class="nav-item" onclick="scrollToScene(3)" data-title="1965 Central Market"></div>
+            <div class="nav-item" onclick="scrollToScene(4)" data-title="1992 Petaling Street"></div>
+            <div class="nav-item" onclick="scrollToScene(5)" data-title="1995 Petronas Twin Towers"></div>
         </div>
 
         <div id="story-panel" onscroll="handleScroll()">
             <div class="scene-section" id="scene-0">
                 <div class="scene-number">Scene 01</div>
-                <h2>Masjid Jamek</h2>
+                <h2>Kuala Lumpur Railway Station</h2>
                 <div class="tags-container">
-                    <div class="year-tag">⏳ 1909 年</div>
-                    <div class="stat-label">Jamek Mosque</div>
-                    <div class="stat-label">KL-HIS-001</div>
+                    <div class="year-tag">⏳ Date: 1920s</div>
+                    <div class="stat-label">Creator: unkown</div>
+                    <div class="stat-label">KITLV_-_0001</div>
                 </div>
-                <p></p>
-                <img class="scene-img" src="https://images.unsplash.com/photo-1590001155093-a3c66ab0c3ff?auto=format&fit=crop&w=800&q=80" alt="Masjid Jamek">
+                <p>Showcasing the station's beautiful Moorish style with an old steam train at the platform, reflecting early rail travel in Malaysia.</p>
+                <img class="scene-img" src="Kuala Lumpur Railway Station.jpg" alt="Railway Station">
             </div>
 
             <div class="scene-section" id="scene-1">
                 <div class="scene-number">Scene 02</div>
-                <h2>苏丹阿都沙末大厦</h2>
+                <h2>Kelab Sultan Sulaiman</h2>
                 <div class="tags-container">
-                    <div class="year-tag">⏳ 1897 年</div>
-                    <div class="stat-label">Sultan Abdul Samad</div>
-                    <div class="stat-label">KL-HIS-002</div>
+                    <div class="year-tag">⏳ Date: 1946</div>
+                    <div class="stat-label">Creator: A.B. Hubback</div>
+                    <div class="stat-label">KITLV_-_0002</div>
                 </div>
-                <p>坐落于独立广场旁，高达41米的宏伟钟楼与标志性的铜制穹顶，是马来西亚宣告独立的永恒舞台。</p>
-                <img class="scene-img" src="https://images.unsplash.com/photo-1621847468416-a2071bc17282?auto=format&fit=crop&w=800&q=80" alt="Sultan Abdul Samad">
+                <p>It documents the First Malay Congress (Kongres Melayu Pertama) held in March 1946. This historic event directly led to the formation of the United Malays National Organisation (UMNO).</p>
+                <img class="scene-img" src="Kelab_Sultan_Sulaiman.jpg" alt="Kelab Sultan Sulaiman">
             </div>
 
             <div class="scene-section" id="scene-2">
                 <div class="scene-number">Scene 03</div>
-                <h2>茨厂街 / 唐人街</h2>
+                <h2>Sultan Abdul Samad</h2>
                 <div class="tags-container">
-                    <div class="year-tag">⏳ 1870 年代</div>
-                    <div class="stat-label">Petaling Street</div>
-                    <div class="stat-label">KL-HIS-003</div>
+                    <div class="year-tag">⏳ Date: 1960s</div>
+                    <div class="stat-label">Creator: Unkown</div>
+                    <div class="stat-label">KITLV_-_0003</div>
                 </div>
-                <p>吉隆坡华人生存与奋斗的根基之地。早期的锡矿工人在这里聚集，甲必丹叶亚来曾在此开设木薯粉厂。</p>
-                <img class="scene-img" src="https://images.unsplash.com/photo-1543157145-f78c636d023d?auto=format&fit=crop&w=800&q=80" alt="Chinatown">
+                <p>The administrative center during the British colonial period, blending Moorish and Mughal architectural styles, featuring an iconic grand clock tower.</p>
+                <img class="scene-img" src="Sultan_Abdul_Samad.jpg" alt="Sultan Abdul Samad">
             </div>
 
             <div class="scene-section" id="scene-3">
                 <div class="scene-number">Scene 04</div>
-                <h2>仙四师爷庙</h2>
+                <h2>Central Market</h2>
                 <div class="tags-container">
-                    <div class="year-tag">⏳ 1864 年</div>
-                    <div class="stat-label">Sin Sze Si Ya Temple</div>
-                    <div class="stat-label">KL-HIS-004</div>
+                    <div class="year-tag">⏳ Date: 1965</div>
+                    <div class="stat-label">Creator: Unkown</div>
+                    <div class="stat-label">KITLV_-_0004</div>
                 </div>
-                <p>由叶亚来倡建，吉隆坡最古老的道教庙宇。其建筑轴线并非正对马路，而是完全根据风水精准推算。</p>
-                <img class="scene-img" src="https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=800&q=80" alt="Temple">
+                <p>The market originally served as an open-air space for locals. The Art Deco concrete building seen in the image was completed in 1937. For decades, vendors and shoppers packed the building to trade fresh produce, meats, and daily necessities.</p>
+                <img class="scene-img" src="center market.jpg" alt="Central Market">
             </div>
 
             <div class="scene-section" id="scene-4">
                 <div class="scene-number">Scene 05</div>
-                <h2>Kuala Lumpur Railway Station</h2>
+                <h2>Petaling Street</h2>
                 <div class="tags-container">
-                    <div class="year-tag">⏳ 1910 年</div>
-                    <div class="stat-label">Old Railway Station</div>
-                    <div class="stat-label">KL-HIS-005</div>
+                    <div class="year-tag">⏳ Date: 1992</div>
+                    <div class="stat-label">Creator: Unkown</div>
+                    <div class="stat-label">KITLV_-_0005</div>
                 </div>
-                <p>Showcasing the station's beautiful Moorish style with an old steam train at the platform, reflecting early rail travel in Malaysia.</p>
-                <img class="scene-img" src="7.jpg" alt="Station">
+                <p>The heart of Chinatown in KL,"Wawasan 2020 Jalan Petaling". This refers to "Vision 2020," a famous national plan introduced in 1991 to turn Malaysia into a fully developed country by the year 2020.</p>
+                <img class="scene-img" src="Petaling_Street.jpg" alt="Petaling Street">
             </div>
 
             <div class="scene-section" id="scene-5">
                 <div class="scene-number">Scene 06</div>
-                <h2>中央艺术坊</h2>
+                <h2>Petronas Twin Towers</h2>
                 <div class="tags-container">
-                    <div class="year-tag">⏳ 1937 年</div>
-                    <div class="stat-label">Central Market</div>
-                    <div class="stat-label">KL-HIS-006</div>
+                    <div class="year-tag">⏳ Date: 1995</div>
+                    <div class="stat-label">Creator: Public Domain</div>
+                    <div class="stat-label">KITLV_-_0006</div>
                 </div>
-                <p>始建于1888年的露天菜市，1937年改建为 Art Deco 装饰艺术风格，现为传统手工艺文化聚集地。</p>
-                <img class="scene-img" src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=800&q=80" alt="Central Market">
-            </div>
-
-            <div class="scene-section" id="scene-6">
-                <div class="scene-number">Scene 07</div>
-                <h2>国家清真寺</h2>
-                <div class="tags-container">
-                    <div class="year-tag">⏳ 1965 年</div>
-                    <div class="stat-label">National Mosque</div>
-                    <div class="stat-label">KL-MOD-007</div>
-                </div>
-                <p>现代主义与伊斯兰美学的完美结合。其标志是宛如一把撑开的折伞状蓝色主穹顶，气势磅礴。</p>
-                <img class="scene-img" src="https://images.unsplash.com/photo-1542856391-010fb87dcfed?auto=format&fit=crop&w=800&q=80" alt="National Mosque">
-            </div>
-
-            <div class="scene-section" id="scene-7">
-                <div class="scene-number">Scene 08</div>
-                <h2>双子塔 (Petronas Towers)</h2>
-                <div class="tags-container">
-                    <div class="year-tag">⏳ 1998 年</div>
-                    <div class="stat-label">Petronas Twin Towers</div>
-                    <div class="stat-label">KL-MOD-008</div>
-                </div>
-                <p>高452米，基于伊斯兰八角星几何图案设计，标志着吉隆坡跨入国际跨国现代摩天都市行列。</p>
-                <img class="scene-img" src="https://images.unsplash.com/photo-1595855759920-86582396756a?auto=format&fit=crop&w=800&q=80" alt="KLCC">
-            </div>
-
-            <div class="scene-section" id="scene-8">
-                <div class="scene-number">Scene 09</div>
-                <h2>吉隆坡塔 (KL Tower)</h2>
-                <div class="tags-container">
-                    <div class="year-tag">⏳ 1996 年</div>
-                    <div class="stat-label">Kuala Lumpur Tower</div>
-                    <div class="stat-label">KL-MOD-009</div>
-                </div>
-                <p>伫立在咖啡山森林保护区之上。塔顶的设计灵感来源于波斯风格的穆卡纳斯蜂窝雕刻图腾。</p>
-                <img class="scene-img" src="https://images.unsplash.com/photo-1528605248644-14dd04022da1?auto=format&fit=crop&w=800&q=80" alt="KL Tower">
+                <p>Petronas Twin Towers in Kuala Lumpur, Malaysia, were built between 1993 and 1996 through a highly coordinated, fast-track engineering process.</p>
+                <img class="scene-img" src="Petronas_Twin_Towers.jpg" alt="Petronas Twin Towers">
             </div>
         </div>
     </div>
 
-  
-
     <script>
+        // 地图初始化，默认视点设置在第一个地点（火车站）
         const map = new maptalks.Map('map', {
-            center: [101.6953, 3.1492],
+            center: [101.6931, 3.1397],
             zoom: 16.5,
             pitch: 55,
             bearing: -10,
@@ -210,16 +208,14 @@ rail
 
         const markerLayer = new maptalks.VectorLayer('markers').addTo(map);
 
+        // 同步更新为对应的 6 个地点的坐标数据及镜头配置
         const scenes = [
-            { name: "Masjid Jamek", center: [101.6953, 3.1492], zoom: 17.5, pitch: 55, bearing: -10, img: "https://images.unsplash.com/photo-1590001155093-a3c66ab0c3ff?w=150" },
-            { name: "苏丹阿都沙末大厦", center: [101.6938, 3.1486], zoom: 17.5, pitch: 60, bearing: 45, img: "https://images.unsplash.com/photo-1621847468416-a2071bc17282?w=150" },
-            { name: "茨厂街", center: [101.6972, 3.1436], zoom: 17.5, pitch: 50, bearing: -20, img: "https://images.unsplash.com/photo-1543157145-f78c636d023d?w=150" },
-            { name: "仙四师爷庙", center: [101.6961, 3.1451], zoom: 18.5, pitch: 55, bearing: 10, img: "https://images.unsplash.com/photo-1564507592333-c60657eea523?w=150" },
-            { name: "Kuala Lumpur Railway Station", center: [101.6931, 3.1397], zoom: 17.5, pitch: 60, bearing: -45, img: "7.jpg" },
-            { name: "中央艺术坊", center: [101.6955, 3.1450], zoom: 17.5, pitch: 45, bearing: 0, img: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=150" },
-            { name: "国家清真寺", center: [101.6917, 3.1417], zoom: 17, pitch: 55, bearing: 30, img: "https://images.unsplash.com/photo-1542856391-010fb87dcfed?w=150" },
-            { name: "双子塔", center: [101.7117, 3.1579], zoom: 15.5, pitch: 65, bearing: -60, img: "https://images.unsplash.com/photo-1595855759920-86582396756a?w=150" },
-            { name: "吉隆坡塔", center: [101.7024, 3.1528], zoom: 16, pitch: 60, bearing: 90, img: "https://images.unsplash.com/photo-1528605248644-14dd04022da1?w=150" }
+            { name: "Kuala Lumpur Railway Station", center: [101.6931, 3.1397], zoom: 17.5, pitch: 60, bearing: -45, img: "Kuala Lumpur Railway Station.jpg" },
+            { name: "Kelab Sultan Sulaiman", center: [101.7016, 3.1613], zoom: 17.5, pitch: 55, bearing: 20, img: "Kelab_Sultan_Sulaiman.jpg" },
+            { name: "Sultan Abdul Samad", center: [101.6938, 3.1486], zoom: 17.5, pitch: 60, bearing: 45, img: "Sultan_Abdul_Samad.jpg" },
+            { name: "Central Market", center: [101.6955, 3.1450], zoom: 17.5, pitch: 45, bearing: 0, img: "center market.jpg" },
+            { name: "Petaling Street", center: [101.6972, 3.1436], zoom: 17.5, pitch: 50, bearing: -20, img: "Petaling_Street.jpg" },
+            { name: "Petronas Twin Towers", center: [101.7117, 3.1579], zoom: 15.5, pitch: 65, bearing: -60, img: "Petronas_Twin_Towers.jpg" }
         ];
 
         let currentSceneIndex = 0;
